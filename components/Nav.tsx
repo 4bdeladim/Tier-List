@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 
-export default function Nav(){
+const Nav = () => {
 	return (
 		<nav className="w-full fixed top-0 h-[80px] flex items-center px-8">
 			<Link className="ml-auto" href="/login">
@@ -11,3 +11,4 @@ export default function Nav(){
 		</nav>
 	)
 }
+export default Nav
