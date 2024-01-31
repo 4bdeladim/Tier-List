@@ -6,7 +6,7 @@ import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 
 interface UploadImageProps {
-  setImages: ActionCreatorWithPayload<DroppableItem[]> | Dispatch<SetStateAction<DroppableItem[]>>
+  setImages: ActionCreatorWithPayload<DroppableItem[]>
 }
 const UploadImage: React.FC<UploadImageProps> = ({ setImages }) => {
 	const dispatch = useDispatch();

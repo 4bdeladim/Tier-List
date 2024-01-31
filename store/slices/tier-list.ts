@@ -100,8 +100,15 @@ const tierListSlice = createSlice({
         },
 
         setRows(state, action: PayloadAction<List[]>) {
-            state.rows = action.payload;
+          state.rows = action.payload;
         },
+
+				saveRow(state, action: PayloadAction<List>){
+					if(state.rows){
+						state.rows = [...state.rows, action.payload]
+					}
+					else state.rows = [action.payload]
+				},
 
 				uploadItem(state, action:PayloadAction<DroppableItem[]>){
 					state.uploadedItems = [...state.uploadedItems, ...action.payload]
@@ -109,5 +116,5 @@ const tierListSlice = createSlice({
     },
 });
 
-export const { changePosition, uploadItem } = tierListSlice.actions;
+export const { changePosition, uploadItem, saveRow } = tierListSlice.actions;
 export default tierListSlice;

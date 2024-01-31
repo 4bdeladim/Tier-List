@@ -44,3 +44,4 @@ interface TierList {
 interface Store {
 	tierList: TierList
 }
+
