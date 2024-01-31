@@ -31,6 +31,7 @@ interface DroppableListProps {
   bg: string;
 	roundedTop: boolean;
 	roundedBottom: boolean
+	isBgGrey: boolean
   items: DroppableItem[];
 }
 
@@ -44,4 +45,5 @@ interface TierList {
 interface Store {
 	tierList: TierList
 }
+
 

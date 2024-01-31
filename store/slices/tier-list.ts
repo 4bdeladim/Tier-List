@@ -112,9 +112,13 @@ const tierListSlice = createSlice({
 
 				uploadItem(state, action:PayloadAction<DroppableItem[]>){
 					state.uploadedItems = [...state.uploadedItems, ...action.payload]
+				},
+
+				deleteRow(state, action:PayloadAction<string>){
+					if(state.rows) state.rows = state.rows?.filter(row => row.id !== action.payload)
 				}
     },
 });
 
-export const { changePosition, uploadItem, saveRow } = tierListSlice.actions;
+export const { changePosition, uploadItem, saveRow, deleteRow } = tierListSlice.actions;
 export default tierListSlice;
