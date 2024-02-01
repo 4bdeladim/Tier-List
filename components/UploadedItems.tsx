@@ -10,11 +10,11 @@ import { useSelector } from 'react-redux';
 const UploadedItems = () => {
 	const uploadedItems = useSelector((state:Store) => state.tierList.uploadedItems)
   return (
-    <div className="w-[1200px] min-h-[100px] flex fixed bottom-24 bg-white rounded-lg">
+    <div className="max-w-[1000px] flex flex-wrap fixed bottom-24 rounded-lg" style={{ height: `${Math.ceil(uploadedItems.length / 10 ) * 100}px` }}>
       <Droppable direction="horizontal" droppableId="uploaded-items">
         {(provided) => (
-          <div className="w-full" {...provided.droppableProps} ref={provided.innerRef}>
-            <div className="flex">
+          <div className="w-full max-w-full" {...provided.droppableProps} ref={provided.innerRef}>
+            <div className="flex max-w-full flex-wrap">
               {uploadedItems?.map((component, index) => (
                 <DraggableItem key={component.id} id={component.id} img={component.img} index={index} />
               ))}

@@ -9,7 +9,7 @@ const DraggableItem: React.FC<DraggedItemProps> = ({ id, img, index }) => {
     <Draggable draggableId={id} index={index}>
       {(provided) => (
         <div
-          className="bg-gray-200 w-[100px] aspect-square relative"
+          className="bg-gray-200 min-w-[100px] aspect-square relative"
           {...provided.dragHandleProps}
           {...provided.draggableProps}
           ref={provided.innerRef}
