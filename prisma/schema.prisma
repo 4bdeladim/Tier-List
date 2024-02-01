@@ -20,7 +20,7 @@ model User {
 }
 
 model TierList {
-  id          Int          @id @default(autoincrement())
+  id          String          @unique
   user        User?        @relation(fields: [userEmail], references: [email])
   userEmail   String?      @db.VarChar(255)
   createdAt   DateTime     @default(now())
@@ -29,18 +29,18 @@ model TierList {
 }
 
 model TierListRow {
-  id          Int          @id @default(autoincrement())
+  id          String          @unique
   tierList    TierList     @relation(fields: [tierListId], references: [id])
-  tierListId  Int
+  tierListId  String
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   items       TierListItem[]
 }
 
 model TierListItem {
-  id          Int          @id @default(autoincrement())
+  id          String          @unique
   row         TierListRow  @relation(fields: [rowId], references: [id])
-  rowId       Int
+  rowId       String
   img         String
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt

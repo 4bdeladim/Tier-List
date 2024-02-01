@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DropResult } from '@hello-pangea/dnd';
 import { DndContext } from '@/context/DndContext';
 import DroppableList from './DroppableList';
@@ -7,23 +7,31 @@ import UploadedItems from './UploadedItems';
 import UploadImage from './UploadImage';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { changePosition, deleteRow, editRow, saveRow, uploadItem } from '@/store/slices/tier-list';
+import { changePosition, deleteRow, editRow, saveRow, setRows, uploadItem } from '@/store/slices/tier-list';
 import { editIcon } from './EditIcon';
 import AlertDialogComponent from './AlertDialog';
 import { TrashIcon } from './TrashIcon';
 import RowDialog from './RowDialog';
 
 import { addRowBtn } from './AddRowBtn';
+import { getFromLocalStorage } from '@/lib/tierlist';
 
 
-const TierList = () => {
+const TierList: React.FC<{id: string}> = ({id}) => {
 	const dispatch = useDispatch()
 	const data = useSelector((state:Store) => state.tierList.rows)
   const onDragEnd = (result: DropResult) => {
     dispatch(changePosition(result))
   };
 
-
+	useEffect(() => {
+		const getListFromLocalStorage = () => {
+			const list = getFromLocalStorage();
+			dispatch(setRows(list))
+		}
+		getListFromLocalStorage();
+	}, [])
+	
   return (
     <DndContext onDragEnd={onDragEnd}>
 			<div className="flex flex-col">

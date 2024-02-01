@@ -47,3 +47,9 @@ interface Store {
 }
 
 
+interface CreatePageProp {
+  params: {
+    id: string;
+  };
+  searchParams: Record<string, never>;
+}

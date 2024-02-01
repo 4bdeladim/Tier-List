@@ -1,14 +1,24 @@
+"use client"
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { useLazyGetUniqueIdQuery } from "@/store/services/tierlist";
+import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 export default function Home() {
+	const [getId, { data:id, isFetching }] = useLazyGetUniqueIdQuery();
+	useEffect(() => {
+		if(id && !isFetching){
+			redirect(`/create/${id}`)
+		}
+	}, [id])
   return (
     <main className="flex min-h-screen w-full justify-center items-center max-w-full">
-			<Link href="/create/new">
-				<Button>
-					Create new TierList
+				<Button onClick={() => getId()}>
+					{
+						isFetching ? <LoadingSpinner /> : "Create new TierList"
+					}
 				</Button>
-			</Link>
     </main>
   );
 }

@@ -1,44 +1,11 @@
+import { saveToLocalStorage } from "@/lib/tierlist";
 import { DropResult } from "@hello-pangea/dnd";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: TierList = {
-	rows: [
-		{
-			id: "1",
-			title: "S",
-			bg: "#FF7374", 
-			items: [
-				{
-					id: "11",
-					img: "/test/js.png"
-				},
-				{
-					id: "12",
-					img: "/test/ts.png"
-				},
-			]
-		},
-		{
-			id: "2",
-			title: "A",
-			bg: "#FFB774",
-			items: [
-				
-			]
-		},
-		{
-			id: "3",
-			title: "B",
-			bg: "#FFDA74",
-			items: [
-				
-			]
-		}
-	
-	
-	],
-	uploadedItems: [{id: "22", img: "/test/ts.png"}, {id: "3", img: '/test/js.png' }]
+	rows: [],
+	uploadedItems: []
 }
 const tierListSlice = createSlice({
     name: "tierList",
@@ -96,6 +63,7 @@ const tierListSlice = createSlice({
                     );
                 }
                 state.rows = newData;
+								saveToLocalStorage(state.rows);
             }
         },
 
@@ -108,14 +76,19 @@ const tierListSlice = createSlice({
 						state.rows = [...state.rows, action.payload]
 					}
 					else state.rows = [action.payload]
+					saveToLocalStorage(state.rows);
 				},
 
 				uploadItem(state, action:PayloadAction<DroppableItem[]>){
 					state.uploadedItems = [...state.uploadedItems, ...action.payload]
+					if(state.rows) saveToLocalStorage(state.rows);
 				},
 
 				deleteRow(state, action:PayloadAction<string>){
-					if(state.rows) state.rows = state.rows?.filter(row => row.id !== action.payload)
+					if(state.rows) {
+						state.rows = state.rows?.filter(row => row.id !== action.payload)
+						saveToLocalStorage(state.rows);
+					}
 				},
 
 				editRow(state, action: PayloadAction<List>){
@@ -131,10 +104,11 @@ const tierListSlice = createSlice({
 							}
 							return row
 						})
+						saveToLocalStorage(state.rows);
 					}
 				}
     },
 });
 
-export const { changePosition, uploadItem, saveRow, deleteRow, editRow } = tierListSlice.actions;
+export const { changePosition, uploadItem, saveRow, deleteRow, editRow, setRows } = tierListSlice.actions;
 export default tierListSlice;
