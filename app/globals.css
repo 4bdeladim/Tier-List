@@ -74,3 +74,22 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+@media screen and (max-width: 1300px) {
+	.list { 
+		width: 800px;
+	}
+}
+
+@media screen and (max-width: 850px) {
+	.list { 
+		width: 600px;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.list { 
+		width: 600px;
+	}
+}

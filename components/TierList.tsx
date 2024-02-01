@@ -28,7 +28,7 @@ const TierList = () => {
     <DndContext onDragEnd={onDragEnd}>
 			<div className="flex flex-col">
 				<RowDialog confirmBtnTitle="Add" button={addRowBtn} title="Add Row" onConfirm={saveRow} />
-				<div className="flex flex-col justify-center my-4 w-[1200px] rounded-lg ">
+				<div className="flex flex-col justify-center my-4 w-[1200px] rounded-lg list ">
 					
 					{data?.map((val, index) => (
 						<div key={index} className="flex">

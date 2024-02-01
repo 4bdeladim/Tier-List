@@ -13,8 +13,8 @@ const DroppableList: React.FC<DroppableListProps> = ({ id, title, bg, items, rou
       </div>
       <Droppable direction="horizontal" droppableId={id}>
         {(provided) => (
-          <div className={`h-[100px] w-full flex ${isBgGrey ? "bg-[#F5F5F5]" : "bg-white"}`} {...provided.droppableProps} ref={provided.innerRef}>
-            <div className="flex flex-wrap">
+          <div className={`min-h-[100px] w-full flex ${isBgGrey ? "bg-[#F5F5F5]" : "bg-white"}`} {...provided.droppableProps} ref={provided.innerRef}>
+            <div className="flex flex-wrap ">
               {items.map((component, index) => (
                 <DraggableItem key={component.id} id={component.id} img={component.img} index={index} />
               ))}
