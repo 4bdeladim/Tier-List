@@ -116,9 +116,25 @@ const tierListSlice = createSlice({
 
 				deleteRow(state, action:PayloadAction<string>){
 					if(state.rows) state.rows = state.rows?.filter(row => row.id !== action.payload)
+				},
+
+				editRow(state, action: PayloadAction<List>){
+					if(state.rows) {
+						state.rows = state.rows.map(row => {
+							if(row.id === action.payload.id){
+								return {
+									title: action.payload.title,
+									bg: action.payload.bg,
+									id: row.id,
+									items: row.items
+								}
+							}
+							return row
+						})
+					}
 				}
     },
 });
 
-export const { changePosition, uploadItem, saveRow, deleteRow } = tierListSlice.actions;
+export const { changePosition, uploadItem, saveRow, deleteRow, editRow } = tierListSlice.actions;
 export default tierListSlice;

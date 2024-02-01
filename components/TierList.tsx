@@ -5,13 +5,15 @@ import { DndContext } from '@/context/DndContext';
 import DroppableList from './DroppableList';
 import UploadedItems from './UploadedItems';
 import UploadImage from './UploadImage';
-import NewRow from './NewRow';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { changePosition, deleteRow, uploadItem } from '@/store/slices/tier-list';
-import EditIcon from './EditIcon';
+import { changePosition, deleteRow, editRow, saveRow, uploadItem } from '@/store/slices/tier-list';
+import { editIcon } from './EditIcon';
 import AlertDialogComponent from './AlertDialog';
 import { TrashIcon } from './TrashIcon';
+import RowDialog from './RowDialog';
+
+import { addRowBtn } from './AddRowBtn';
 
 
 const TierList = () => {
@@ -25,13 +27,13 @@ const TierList = () => {
   return (
     <DndContext onDragEnd={onDragEnd}>
 			<div className="flex flex-col">
-				<NewRow />
+				<RowDialog confirmBtnTitle="Add" button={addRowBtn} title="Add Row" onConfirm={saveRow} />
 				<div className="flex flex-col justify-center my-4 w-[1200px] rounded-lg ">
 					
 					{data?.map((val, index) => (
 						<div key={index} className="flex">
 							<div className="px-4 flex justify-between items-center gap-4">
-								<EditIcon /> 
+								<RowDialog confirmBtnTitle="Edit"  button={editIcon} onConfirm={editRow} title="Edit row" defaultBg={val.bg} defaultRowName={val.title} rowId={val.id}  />
 								<AlertDialogComponent button={TrashIcon} params={val.id} onConfirm={deleteRow} title="Are you sure you want to delete this row ?" description="All items in this row will be deleted with it"  />
 							</div>
 							<div
