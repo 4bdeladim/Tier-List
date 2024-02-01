@@ -1,9 +1,9 @@
 "use client"
-import React, { Dispatch, SetStateAction, useRef } from "react";
-import { Button } from "./ui/button";
-import { v4 as uuid } from "uuid"
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
+import { v4 as uuid } from "uuid";
+import { Button } from "./ui/button";
 
 interface UploadImageProps {
   setImages: ActionCreatorWithPayload<DroppableItem[]>
