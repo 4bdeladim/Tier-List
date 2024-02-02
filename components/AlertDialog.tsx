@@ -17,7 +17,7 @@ interface AlertDialogProps {
 	title: string,
 	description: string,
 	onConfirm: ActionCreatorWithPayload<any, any> ,
-	params: any,
+	params?: any,
 	button: JSX.Element ,
 }
 const AlertDialogComponent:React.FC<AlertDialogProps> = ({title, description, onConfirm, params, button}) => {

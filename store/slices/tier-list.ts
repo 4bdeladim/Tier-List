@@ -4,6 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: TierList = {
+	id: "",
+	isLocked: false,
 	rows: [],
 	uploadedItems: []
 }
@@ -42,9 +44,8 @@ const tierListSlice = createSlice({
                     state.uploadedItems = state.uploadedItems.filter(
                         (item) => item.id !== draggedItem.id
                     );
-                    return;
                 }
-                if (
+                else if (
                     destination.droppableId === "uploaded-items" &&
                     sourceList
                 ) {
@@ -106,9 +107,14 @@ const tierListSlice = createSlice({
 						})
 						saveToLocalStorage(state.rows);
 					}
+				},
+
+				changeLock(state){
+					state.isLocked = !state.isLocked
+					if(!localStorage.getItem("isLockAlertNotFirstTime")) localStorage.setItem("isLockAlertNotFirstTime", "true")
 				}
     },
 });
 
-export const { changePosition, uploadItem, saveRow, deleteRow, editRow, setRows } = tierListSlice.actions;
+export const { changePosition, uploadItem, saveRow, deleteRow, editRow, setRows, changeLock } = tierListSlice.actions;
 export default tierListSlice;

@@ -38,7 +38,9 @@ interface DroppableListProps {
 
 
 interface TierList {
+	isLocked: boolean
 	rows: List[] | null,
+	id: string,
 	uploadedItems: DroppableItem[]
 }
 
@@ -52,4 +54,25 @@ interface CreatePageProp {
     id: string;
   };
   searchParams: Record<string, never>;
+}
+
+//for prisma
+interface DbTierList {
+  id: string;
+  userEmail?: string;
+	rows: DbRow[]
+}
+
+interface DbRow {
+  id: string;
+  tierListId: string;
+	bg: string;
+	items: DbItem[]
+}
+
+
+interface DbItem {
+	id: string,
+	rowId: string,
+	img: string
 }

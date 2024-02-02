@@ -35,6 +35,7 @@ model TierListRow {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   items       TierListItem[]
+	bg					String
 }
 
 model TierListItem {

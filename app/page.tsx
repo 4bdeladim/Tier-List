@@ -9,7 +9,7 @@ export default function Home() {
 	const [getId, { data:id, isFetching }] = useLazyGetUniqueIdQuery();
 	useEffect(() => {
 		if(id && !isFetching){
-			redirect(`/create/${id}`)
+			redirect(`/edit/${id}`)
 		}
 	}, [id])
   return (
