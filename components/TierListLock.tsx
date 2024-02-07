@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 const TierListLock: React.FC = () => {
     const { isLocked } = useSelector((state: Store) => state.tierList);
     const dispatch = useDispatch();
-    return localStorage.getItem("isLockAlertNotFirstTime") ? (
+    return localStorage?.getItem("isLockAlertNotFirstTime") ? (
         <Button onClick={() => dispatch(changeLock())}>
             {isLocked ? (
                 <svg

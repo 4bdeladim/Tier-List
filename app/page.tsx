@@ -9,6 +9,7 @@ export default function Home() {
 	const [getId, { data:id, isFetching }] = useLazyGetUniqueIdQuery();
 	useEffect(() => {
 		if(id && !isFetching){
+			localStorage.removeItem("tier-list")
 			redirect(`/edit/${id}`)
 		}
 	}, [id])

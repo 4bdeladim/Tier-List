@@ -112,9 +112,13 @@ const tierListSlice = createSlice({
 				changeLock(state){
 					state.isLocked = !state.isLocked
 					if(!localStorage.getItem("isLockAlertNotFirstTime")) localStorage.setItem("isLockAlertNotFirstTime", "true")
+				},
+				
+				setId(state, action:PayloadAction<string>){
+					state.id = action.payload
 				}
     },
 });
 
-export const { changePosition, uploadItem, saveRow, deleteRow, editRow, setRows, changeLock } = tierListSlice.actions;
+export const { changePosition, uploadItem, saveRow, deleteRow, editRow, setRows, changeLock, setId } = tierListSlice.actions;
 export default tierListSlice;

@@ -1,45 +1,46 @@
 import { prisma } from "@/lib/prisma";
-import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextRequest) {
     try {
-        const { tierList }: { tierList: TierList } = await req.body;
+        const { tierList }: { tierList: TierList } = await req.json();
         if (!tierList)
             return NextResponse.json("No tier list given", { status: 404 });
-
-        await prisma.tierList.create({
-            data: {
+        const checkIfTierListExists = await prisma.tierList.findFirst({
+            where: {
                 id: tierList.id,
             },
         });
-
-        for (const row of tierList.rows || []) {
-            await prisma.tierListRow.create({
+        if (!checkIfTierListExists) {
+            await prisma.tierList.create({
                 data: {
-                    id: row.id,
-                    bg: row.bg,
-                    tierListId: tierList.id,
-                    items: {
-                        createMany: {
-                            data: row.items.map((item: DroppableItem) => ({
-                                id: item.id,
-                                img: item.img,
-                                rowId: row.id,
-                            })),
-                        },
-                    },
+                    id: tierList.id,
                 },
             });
+            for (const row of tierList.rows || []) {
+                const createdRow = await prisma.tierListRow.create({
+                    data: {
+                        id: row.id,
+                        bg: row.bg,
+                        tierListId: tierList.id,
+                    },
+                });
+                for (const item of row.items || []) {
+                    await prisma.tierListItem.create({
+                        data: {
+                            id: item.id,
+                            img: item.img,
+                            rowId: createdRow.id,
+                        },
+                    });
+                }
+            }
         }
 
-        res.status(200).json({ message: "Tier list created successfully" });
+        return NextResponse.json("Tierlist saved", { status: 200 });
     } catch (error) {
-        console.error("Error creating tier list:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+        return NextResponse.json("Server error", { status: 500 });
     }
 }
 
-export async function GET() {
-
-}
+export async function GET() {}

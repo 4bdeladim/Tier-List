@@ -56,23 +56,3 @@ interface CreatePageProp {
   searchParams: Record<string, never>;
 }
 
-//for prisma
-interface DbTierList {
-  id: string;
-  userEmail?: string;
-	rows: DbRow[]
-}
-
-interface DbRow {
-  id: string;
-  tierListId: string;
-	bg: string;
-	items: DbItem[]
-}
-
-
-interface DbItem {
-	id: string,
-	rowId: string,
-	img: string
-}

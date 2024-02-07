@@ -7,7 +7,7 @@ import UploadedItems from './UploadedItems';
 import UploadImage from './UploadImage';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { changePosition, deleteRow, editRow, saveRow, setRows, uploadItem } from '@/store/slices/tier-list';
+import { changePosition, deleteRow, editRow, saveRow, setId, setRows, uploadItem } from '@/store/slices/tier-list';
 import { editIcon } from './EditIcon';
 import AlertDialogComponent from './AlertDialog';
 import { TrashIcon } from './TrashIcon';
@@ -23,12 +23,13 @@ const TierList: React.FC<{id: string}> = ({id}) => {
   const onDragEnd = (result: DropResult) => {
     dispatch(changePosition(result))
   };
-
+	
 	useEffect(() => {
 		const getListFromLocalStorage = () => {
 			const list = getFromLocalStorage();
 			dispatch(setRows(list))
 		}
+		dispatch(setId(id))
 		getListFromLocalStorage();
 	}, [])
 	

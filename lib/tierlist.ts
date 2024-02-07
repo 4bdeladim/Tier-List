@@ -1,3 +1,4 @@
+import axios from "axios"
 export const saveToLocalStorage = (list:List[]) => {
 	localStorage.setItem("tier-list", JSON.stringify(list));
 }
@@ -8,4 +9,14 @@ export const getFromLocalStorage = () => {
 		return JSON.parse(tierList) as List[]
 	}
 	return [];
+}
+
+
+export const saveTierList = async (tierList: TierList) => {
+	try {
+		const { data } = await axios.post(`/api/tier-list/${tierList.id}`, {tierList})
+		console.log(data)
+	} catch (error) {
+		console.log(error)
+	}
 }
